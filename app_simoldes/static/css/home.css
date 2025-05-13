@@ -1,0 +1,16 @@
+.table {
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #00614D !important;
+    color: white !important;
+}
+
+.dados-col {
+    min-width: 80px;
+}
+
+.comentario-col {
+    min-width: 200px;
+}

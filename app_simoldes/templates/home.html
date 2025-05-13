@@ -1,0 +1,182 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<main class="mt-5">
+    {% for projeto in projetos %}
+    <section class="container">
+        <div class="row gap-3">
+            <div class="col-12 col-lg-6 bg-white border border-1 rounded-4 order-2 order-lg-1">
+                <img class="img-fluid" src="../static/imgs/capa.png" alt="imagem do projeto">
+            </div>
+            <div class="col order-1 order-lg-2">
+                <div class="row gap-2 mb-2">
+                    <div class="card col-6">
+                        <div class="card-body">
+                            <h6 class="card-title">Máquina</h6>
+                            <h5 class="card-subtitle text-primary">{{ projeto.maquina }}</h5>
+                        </div>
+                    </div>
+                    <div class="card col">
+                        <div class="card-body">
+                            <h6 class="card-title">Data</h6>
+                            <h5 class="card-subtitle text-primary">{{ projeto.data }}</h5>
+                        </div>
+                    </div>
+                </div><!-- row -->
+                <div class="row gap-2 mb-2">
+                    <div class="card col-6">
+                        <div class="card-body">
+                            <h6 class="card-title">Pastas dos programas</h6>
+                            <h5 class="card-subtitle text-danger">{{ projeto.pasta_programas }}</h5>
+                        </div>
+                    </div>
+                    <div class="card col">
+                        <div class="card-body">
+                            <h6 class="card-title">Material</h6>
+                            <h5 class="card-subtitle text-danger">{{ projeto.material }}</h5>
+                        </div>
+                    </div>
+                </div><!-- row -->
+                <div class="row gap-2 mb-2">
+                    <div class="card col-6">
+                        <div class="card-body">
+                            <h6 class="card-title">Programador</h6>
+                            <h5 class="card-subtitle">{{ projeto.programador }}</h5>
+                        </div>
+                    </div>
+                    <div class="card col">
+                        <div class="card-body">
+                            <h6 class="card-title">Aperto</h6>
+                            <h5 class="card-subtitle text-success">{{ projeto.aperto }}</h5>
+                        </div>
+                    </div>
+                </div><!-- row -->
+                <div class="row gap-2">
+                    <div class="card col-6">
+                        <div class="card-body">
+                            <h6 class="card-title">Tempo do projeto</h6>
+                            <h5 class="card-subtitle text-danger">{{ projeto.tempo_projeto }}</h5>
+                        </div>
+                    </div>
+                </div><!-- row -->
+            </div><!-- col -->
+        </div><!-- row -->
+    </section><!-- container -->
+
+    <section class="container mt-5 p-0">
+        <div class="table-responsive rounded-3">
+                        <table class="table table-hover text-center h-100 mb-0">
+                            <thead>
+                                <tr>
+                                    <th><h6 class="mb-0">Setup</h6></th>
+                                    <th><h6 class="mb-0">Usinagem</h6></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><h5 class="mb-0">
+                                        Ini.: {{ processo.setup_inicio }} Hor.: {{ processo.setup_hora_ini}} Tér.: {{ processo.setup_termino }} Hor.: {{ processo.setup_hora_ter }}
+                                    </h5></td>
+                                    <td><h5 class="mb-0">
+                                        Ini.: {{ processo.usina_inicio }} Hor.: {{ processo.usina_hora_ini}} Tér.: {{ processo.usina_termino }} Hor.: {{ processo.usina_hora_ter }}
+                                    </h5></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        <div class="table-responsive rounded-3">
+            <table class="table table-hover text-center h-100 mb-0">
+                <thead>
+                    <tr>
+                        <th><h6 class="mb-0">Centro do bloco</h6></th>
+                        <th><h6 class="mb-0">Ref. em Z</h6></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><h5 class="mb-0">{{ projeto.centro_bloco }}</h5></td>
+                        <td><h5 class="mb-0">{{ projeto.referencia_z }}</h5></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"><h6>Observação</h6><h5 class="text-danger">{{ projeto.observacao }}</h5></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+    {% endfor %}
+
+    <section class="container mb-5 mt-5 p-0">
+        <h1 class="mb-4">Linha de processos</h1>
+        <div class="table-responsive rounded-3">
+            <table class="table table-flex table-hover text-center h-100 mb-0">
+                <thead>
+                    <tr>
+                        <th><h6 class="mb-0">Programa</h6></th>
+                        <th><h6 class="mb-0">Tipo percurso</h6></th>
+                        <th><h6 class="mb-0">Ref.</h6></th>
+                        <th><h6 class="mb-0">Comentário</h6></th>
+                        <th><h6 class="mb-0">Ø</h6></th><!-- Ferramenta-->
+                        <th><h6 class="mb-0">RC</h6></th><!-- Ferramenta-->
+                        <th><h6 class="mb-0">Rib.</h6></th><!-- Ferramenta-->
+                        <th><h6 class="mb-0">Alt.</h6></th><!-- Ferramenta-->
+                        <th><h6 class="mb-0">Z min</h6></th>
+                        <th><h6 class="mb-0">Lat.2D</h6></th><!-- Sob Esp -->
+                        <th><h6 class="mb-0">Lat.</h6></th><!-- Sob Esp -->
+                        <th><h6 class="mb-0">Vert.</h6></th><!-- Sob Esp -->
+                        <th><h6 class="mb-0">Lat.</h6></th><!-- Passo -->
+                        <th><h6 class="mb-0">Vert.</h6></th><!-- Passo -->
+                        <th><h6 class="mb-0">Tol.</h6></th>
+                        <th><h6 class="mb-0">Rot.</h6></th>
+                        <th><h6 class="mb-0">Av.</h6></th>
+                        <th><h6 class="mb-0">Ângulo</h6></th>
+                        <th><h6 class="mb-0">Plano Trab.</h6></th>
+                        <th><h6 class="mb-0">Corte</h6></th><!-- Tempo -->
+                        <th><h6 class="mb-0">Total</h6></th><!-- Tempo -->
+                        <th><h6 class="mb-0">Fresa</h6></th>
+                        <th><h6 class="mb-0">Sup.</h6></th>
+                        <th><h6 class="mb-0">Medição</h6></th>
+                        <th><h6 class="mb-0">Rúbrica</h6></th>
+                    </tr>
+                </thead>
+                {% for processo in processos %}
+                <tbody class="">
+                    <tr>
+                        <td><h5 class="mb-0 dados-col">{{ processo.programa }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.tipo_percurso }}</h5></td>
+                        <td><h5 class="mb-0 dados-col text-danger">{{ processo.referencia }}</h5></td>
+                        <td><h5 class="mb-0 comentario-col text-primary">{{ processo.comentario }}</h5></td>
+                        <td><h5 class="mb-0 dados-col text-danger">{{ processo.ferramenta_o }}</h5></td>
+                        <td><h5 class="mb-0 dados-col text-danger">{{ processo.ferramenta_rc }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.ferramenta_rib }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.ferramenta_alt }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.z_min }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.lat_2d }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.lat_sob_esp }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.vert_sob_esp }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.lat_passo }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.vert_passo }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.tol }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.rot }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.av }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.angulo }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.plano_trab }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.corte }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.total }}</h5></td>
+                        <td><h5 class="mb-0 dados-col text-success">{{ processo.fresa }}</h5></td>
+                        <td><h5 class="mb-0 dados-col text-success">{{ processo.sup }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.medicao }}</h5></td>
+                        <td><h5 class="mb-0 dados-col">{{ processo.rubrica }}</h5></td>
+                        
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+
+        </div>
+    </section>
+
+</main>
+{% endblock content %}

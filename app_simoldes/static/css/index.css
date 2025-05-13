@@ -1,0 +1,12 @@
+.bg-verde-simoldes {
+    background-color: #00614D;
+}
+
+.btn-header i{
+    font-size: 3rem;
+    color: white;
+}
+
+.logo-sim {
+    filter: grayscale(100) brightness(100);
+}
