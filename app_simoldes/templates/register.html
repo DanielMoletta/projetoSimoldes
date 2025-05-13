@@ -1,0 +1,34 @@
+{% extends 'index2.html' %}
+
+{% block content %}
+<section class="container">
+    <div class="login-container">
+        <a class="logo" href="/"><img src="../static/img/logo.png" alt=""></a>
+        <h2>Cadastro na Effexlog</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="campo">
+                <label>Nome de usuário:</label>
+                {{ form.username }}
+            </div>
+            <div class="campo">
+                <label>Endereço de e-mail:</label>
+                {{ form.email }}
+            </div>
+            <div class="campo">
+                <label>Senha:</label>
+                {{ form.password }}
+            </div>
+            <div class="campo">
+                <label>Confirmar senha:</label>
+                {{ form.confirm_password }}
+            </div>
+            <button type="submit">Cadastrar</button>
+            <a class="clique-aqui" href="{% url 'login' %}">Tem uma conta? Clique aqui!</a>
+        </form>
+    </div>
+
+    <div class="img-container">
+    </div>
+</section>
+{% endblock content %}

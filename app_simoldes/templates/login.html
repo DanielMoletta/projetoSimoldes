@@ -1,0 +1,23 @@
+{% extends 'index2.html' %}
+
+{% block content %}
+    <section class="container">
+        <div class="d-flex flex-column align-items-center justify-content-center container-login">
+            <a class="logo" href="/"><img class="img-fluid" src="../static/imgs/logo.png" alt="Logo da Simoldes" width="500"></a>
+            <h2>Entrar</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="campo">
+                    <label>Email:</label>
+                    {{ form.email }}
+                </div>
+                <div class="campo">
+                    <label>Senha:</label>
+                    {{ form.password }}
+                </div>
+                <button type="submit">Entrar</button>
+                <a class="clique-aqui" href="{% url 'register' %}">Não tem uma conta? Clique aqui!</a>
+            </form>
+        </div>
+    </section>
+{% endblock content %}
