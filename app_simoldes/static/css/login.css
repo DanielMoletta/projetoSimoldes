@@ -1,3 +1,17 @@
-.container-login {
-    min-height: 90vh;
+.bg-body-simoldes {
+    background-color: #00614D;
+}
+
+.btn-simoldes {
+    color: #fff;
+    background-color: #00614D;
+}
+
+.btn-simoldes:hover {
+    color: #fff;
+    background-color: #00614D;
+}
+
+.border-simoldes {
+    border-color: #00614D;
 }

@@ -1,23 +1,26 @@
 {% extends 'index2.html' %}
 
 {% block content %}
-    <section class="container">
-        <div class="d-flex flex-column align-items-center justify-content-center container-login">
-            <a class="logo" href="/"><img class="img-fluid" src="../static/imgs/logo.png" alt="Logo da Simoldes" width="500"></a>
-            <h2>Entrar</h2>
-            <form method="post">
+<section class="container min-vh-100 d-flex justify-content-center align-items-center">
+
+    <div class="d-flex flex-column align-items-center justify-content-center bg-white border rounded-4 my-auto p-5 gap-2">
+        <a class="logo" href="/"><img class="img-fluid" src="../static/imgs/logo.png" alt="Logo da Simoldes"
+                width="500"></a>
+        <form method="post">
+            <div class="d-flex flex-column gap-3 mt-5 p-4">
                 {% csrf_token %}
-                <div class="campo">
-                    <label>Email:</label>
+                <div class="form-control border-0 fw-bold fs-4 border rounded-4">
+                    <label>Email :</label>
                     {{ form.email }}
                 </div>
-                <div class="campo">
+                <div class="form-control border-0 fw-bold fs-4 border rounded-4">
                     <label>Senha:</label>
                     {{ form.password }}
                 </div>
-                <button type="submit">Entrar</button>
-                <a class="clique-aqui" href="{% url 'register' %}">Não tem uma conta? Clique aqui!</a>
-            </form>
-        </div>
-    </section>
+                <button class="btn btn-simoldes fs-4 fw-bold mt-3" type="submit">Entrar</button>
+            </div>
+        </form>
+    </div>
+
+</section>
 {% endblock content %}

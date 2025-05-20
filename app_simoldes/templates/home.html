@@ -118,60 +118,253 @@
                         <th><h6 class="mb-0">Tipo percurso</h6></th>
                         <th><h6 class="mb-0">Ref.</h6></th>
                         <th><h6 class="mb-0">Comentário</h6></th>
-                        <th><h6 class="mb-0">Ø</h6></th><!-- Ferramenta-->
-                        <th><h6 class="mb-0">RC</h6></th><!-- Ferramenta-->
-                        <th><h6 class="mb-0">Rib.</h6></th><!-- Ferramenta-->
-                        <th><h6 class="mb-0">Alt.</h6></th><!-- Ferramenta-->
-                        <th><h6 class="mb-0">Z min</h6></th>
-                        <th><h6 class="mb-0">Lat.2D</h6></th><!-- Sob Esp -->
-                        <th><h6 class="mb-0">Lat.</h6></th><!-- Sob Esp -->
-                        <th><h6 class="mb-0">Vert.</h6></th><!-- Sob Esp -->
-                        <th><h6 class="mb-0">Lat.</h6></th><!-- Passo -->
-                        <th><h6 class="mb-0">Vert.</h6></th><!-- Passo -->
-                        <th><h6 class="mb-0">Tol.</h6></th>
-                        <th><h6 class="mb-0">Rot.</h6></th>
-                        <th><h6 class="mb-0">Av.</h6></th>
-                        <th><h6 class="mb-0">Ângulo</h6></th>
-                        <th><h6 class="mb-0">Plano Trab.</h6></th>
                         <th><h6 class="mb-0">Corte</h6></th><!-- Tempo -->
                         <th><h6 class="mb-0">Total</h6></th><!-- Tempo -->
-                        <th><h6 class="mb-0">Fresa</h6></th>
-                        <th><h6 class="mb-0">Sup.</h6></th>
-                        <th><h6 class="mb-0">Medição</h6></th>
-                        <th><h6 class="mb-0">Rúbrica</h6></th>
                     </tr>
                 </thead>
                 {% for processo in processos %}
                 <tbody class="">
                     <tr>
-                        <td><h5 class="mb-0 dados-col">{{ processo.programa }}</h5></td>
+                        <td>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ forloop.counter }}">
+                                <h5 class="mb-0 dados-col">{{ processo.programa }}</h5>
+                            </button>
+                        </td>
                         <td><h5 class="mb-0 dados-col">{{ processo.tipo_percurso }}</h5></td>
                         <td><h5 class="mb-0 dados-col text-danger">{{ processo.referencia }}</h5></td>
                         <td><h5 class="mb-0 comentario-col text-primary">{{ processo.comentario }}</h5></td>
-                        <td><h5 class="mb-0 dados-col text-danger">{{ processo.ferramenta_o }}</h5></td>
-                        <td><h5 class="mb-0 dados-col text-danger">{{ processo.ferramenta_rc }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.ferramenta_rib }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.ferramenta_alt }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.z_min }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.lat_2d }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.lat_sob_esp }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.vert_sob_esp }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.lat_passo }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.vert_passo }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.tol }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.rot }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.av }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.angulo }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.plano_trab }}</h5></td>
                         <td><h5 class="mb-0 dados-col">{{ processo.corte }}</h5></td>
                         <td><h5 class="mb-0 dados-col">{{ processo.total }}</h5></td>
-                        <td><h5 class="mb-0 dados-col text-success">{{ processo.fresa }}</h5></td>
-                        <td><h5 class="mb-0 dados-col text-success">{{ processo.sup }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.medicao }}</h5></td>
-                        <td><h5 class="mb-0 dados-col">{{ processo.rubrica }}</h5></td>
                         
                     </tr>
                 </tbody>
+                <div class="modal fade" id="exampleModal{{ forloop.counter }}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel{{ forloop.counter }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel{{ forloop.counter }}">Dados Linha {{ processo.programa }}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body bg-simoldes">
+                                <div class="container">
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Comentário</h6>
+                                                    <p class="card-text text-primary fw-bold">{{ processo.comentario }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Tipo Percurso</h6>
+                                                    <p class="card-text fw-bold">{{ processo.tipo_percurso }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Ref.</h6>
+                                                    <p class="card-text text-danger fw-bold">{{ processo.referencia }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Z min</h6>
+                                                    <p class="card-text fw-bold">{{ processo.z_min }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-simoldes-dark rounded-3 p-2 row g-3">
+                                            <div class="col-12">
+                                                <h5 class="fw-bold text-white">Ferramentas</h5> <!-- Ferramentas -->
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Ø</h6>
+                                                        <p class="card-text text-danger fw-bold">{{ processo.ferramenta_o }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">RC</h6>
+                                                        <p class="card-text text-danger fw-bold">{{ processo.ferramenta_rc }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Rib</h6>
+                                                        <p class="card-text fw-bold">{{ processo.ferramenta_rib }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Altura</h6>
+                                                        <p class="card-text fw-bold">{{ processo.ferramenta_alt }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-simoldes-dark rounded-3 p-2 row g-3">
+                                            <!-- Sob. Esp. -->
+                                            <div class="col-12 mt-3">
+                                                <h5 class="fw-bold text-white">Sob. Esp.</h5>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Lat.2D</h6>
+                                                        <p class="card-text fw-bold">{{ processo.lat_2d }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Lat.</h6>
+                                                        <p class="card-text fw-bold">{{ processo.lat_sob_esp }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Vert.</h6>
+                                                        <p class="card-text fw-bold">{{ processo.vert_sob_esp }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-simoldes-dark rounded-3 p-2 row g-3">
+                                            <!-- Passos -->
+                                            <div class="col-12 mt-3">
+                                                <h5 class="fw-bold text-white">Passo</h5>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Lat.</h6>
+                                                        <p class="card-text fw-bold">{{ processo.lat_passo }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Vert.</h6>
+                                                        <p class="card-text fw-bold">{{ processo.vert_passo }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Tol.</h6>
+                                                    <p class="card-text fw-bold">{{ processo.tol }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Rot.</h6>
+                                                    <p class="card-text fw-bold">{{ processo.rot }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Av.</h6>
+                                                    <p class="card-text fw-bold">{{ processo.av }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Ângulo</h6>
+                                                    <p class="card-text fw-bold">{{ processo.angulo }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Plano Trab.</h6>
+                                                    <p class="card-text fw-bold">{{ processo.plano_trab }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-simoldes-dark rounded-3 p-2 row g-3">
+                                            <!-- Tempo -->
+                                            <div class="col-12 mt-3">
+                                                <h5 class="fw-bold text-white">Tempo</h5>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Corte</h6>
+                                                        <p class="card-text fw-bold">{{ processo.corte }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Total</h6>
+                                                        <p class="card-text fw-bold">{{ processo.total }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <form method="post">
+                                                        <h6 class="card-title fw-bold">Medição</h6>
+                                                        <div class="form-control border-0 fw-bold bg-black fs-4 border rounded-4">
+                                                            
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                     <form method="post">
+                                                        <h6 class="card-title fw-bold">Rúbrica</h6>
+                                                        <div class="form-control border-0 fw-bold bg-black fs-4 border rounded-4">
+                                                            
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
             </table>
 

@@ -91,23 +91,23 @@ class Processo(models.Model):
     tipo_percurso = models.ForeignKey(Tipo_Percurso, on_delete=models.PROTECT)
     referencia = models.ForeignKey(Referencia, on_delete=models.PROTECT)
     comentario = models.CharField(max_length=100)
-    ferramenta_o = models.FloatField(blank=True, null=True)
-    ferramenta_rc = models.FloatField(blank=True, null=True)
-    ferramenta_rib = models.FloatField(blank=True, null=True)
-    ferramenta_alt = models.FloatField(blank=True, null=True)
+    ferramenta_o = models.FloatField(blank=True, null=True) #ferramenta
+    ferramenta_rc = models.FloatField(blank=True, null=True) #ferramenta
+    ferramenta_rib = models.FloatField(blank=True, null=True) #ferramenta
+    ferramenta_alt = models.FloatField(blank=True, null=True) #ferramenta
     z_min = models.FloatField(default=0, blank=True, null=True)
-    lat_2d = models.FloatField(blank=True, null=True)
-    lat_sob_esp = models.FloatField(blank=True, null=True)
-    vert_sob_esp = models.FloatField(blank=True, null=True)
-    lat_passo = models.FloatField(blank=True, null=True)
-    vert_passo = models.FloatField(blank=True, null=True)
+    lat_2d = models.FloatField(blank=True, null=True) #sob_esp
+    lat_sob_esp = models.FloatField(blank=True, null=True) #sob_esp
+    vert_sob_esp = models.FloatField(blank=True, null=True) #sob_esp
+    lat_passo = models.FloatField(blank=True, null=True) #passo
+    vert_passo = models.FloatField(blank=True, null=True) #passo
     tol = models.FloatField(default=0, blank=True, null=True)
     rot = models.FloatField(default=0, blank=True, null=True)
     av = models.FloatField(default=0, blank=True, null=True)
     angulo = models.ForeignKey(Angulo, on_delete=models.PROTECT)
     plano_trab = models.ForeignKey(Plano_Trabalho, on_delete=models.PROTECT)
-    corte = models.CharField(max_length=100)
-    total = models.CharField(max_length=100)
+    corte = models.CharField(max_length=100) #tempo
+    total = models.CharField(max_length=100) #tempo
     fresa = models.CharField(max_length=100)
     sup = models.CharField(max_length=100)
     medicao = models.CharField(max_length=100)
