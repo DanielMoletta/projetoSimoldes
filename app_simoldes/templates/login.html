@@ -1,24 +1,46 @@
 {% extends 'index2.html' %}
 
 {% block content %}
-<section class="container min-vh-100 d-flex justify-content-center align-items-center">
-
-    <div class="d-flex flex-column align-items-center justify-content-center bg-white border rounded-4 my-auto p-5 gap-2">
-        <a class="logo" href="/"><img class="img-fluid" src="../static/imgs/logo.png" alt="Logo da Simoldes"
+<section class="container min-vh-100 d-flex flex-column justify-content-center align-items-center mt-0 fs-3">
+    <div class="d-flex justify-content-center m-0 p-0 b-0">
+        <img class="img-fluid rotate" src="../static/imgs/EstrelaSimoldes-567x500.png" width="170"></img>
+    </div>
+    <div
+        class="d-flex flex-column align-items-center bg-body-tertiary justify-content-center rounded-4 my-auto mt-0 p-5 gap-2">
+        <a class="logo" href="#"><img class="img-fluid" src="../static/imgs/logo_sem_estrela.png" alt="Logo da Simoldes"
                 width="500"></a>
-        <form method="post">
-            <div class="d-flex flex-column gap-3 mt-5 p-4">
-                {% csrf_token %}
-                <div class="form-control border-0 fw-bold fs-4 border rounded-4">
-                    <label>Email :</label>
+        <form method="post" class="w-100" style="max-width: 500px;">
+            {% csrf_token %}
+
+            <div class="mb-4 mt-5">
+                <div class="input-group mb-4">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-envelope fs-5"></i></span>
                     {{ form.email }}
                 </div>
-                <div class="form-control border-0 fw-bold fs-4 border rounded-4">
-                    <label>Senha:</label>
+                {% for error in form.email.errors %}
+                <div class="text-danger mt-1 small">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="mb-4">
+                <div class="input-group mb-4">
+                    <span class="input-group-text bg-white"><i class="fa-solid fa-lock fs-5"></i></span>
                     {{ form.password }}
                 </div>
-                <button class="btn btn-simoldes fs-4 fw-bold mt-3" type="submit">Entrar</button>
+                {% for error in form.password.errors %}
+                <div class="text-danger mt-1 small">{{ error }}</div>
+                {% endfor %}
             </div>
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-success w-100 py-3 fs-4 fw-bold rounded-3 shadow">Entrar</button>
         </form>
     </div>
 

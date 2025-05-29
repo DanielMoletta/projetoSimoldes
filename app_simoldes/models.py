@@ -1,56 +1,6 @@
 from django.db import models
-
-from django.db import models
-
-class Aperto(models.Model):
-    class Meta:
-        verbose_name = 'Aperto'
-        verbose_name_plural = 'Apertos'
-
-    nome = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nome
-
-class Tipo_Percurso(models.Model):
-    class Meta:
-        verbose_name = 'Tipo de Percurso'
-        verbose_name_plural = 'Tipos de Percurso'
-
-    nome = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nome
-
-class Referencia(models.Model):
-    class Meta:
-        verbose_name = 'Referência'	
-        verbose_name_plural = 'Referências'
-
-    nome = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nome
-
-class Angulo(models.Model):
-    class Meta:
-        verbose_name = 'Ângulo'
-        verbose_name_plural = 'Ângulos'
-
-    nome = models.ForeignKey(Aperto, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return f"{self.nome}"
-    
-class Plano_Trabalho(models.Model):
-    class Meta:
-        verbose_name = 'Plano de Trabalho'	
-        verbose_name_plural = 'Planos de Trabalho'
-
-    nome = models.ForeignKey(Aperto, on_delete=models.PROTECT)
-
-    def __str__(self):
-        return f"{self.nome}"
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Projeto(models.Model):
     class Meta:
@@ -63,12 +13,30 @@ class Projeto(models.Model):
     pasta_programas = models.CharField(max_length=100)
     material = models.CharField(max_length=100)
     programador = models.CharField(max_length=100)
-    aperto = models.ForeignKey(Aperto, on_delete=models.PROTECT)
+    aperto = models.CharField(max_length=100)
     tempo_projeto = models.CharField(max_length=100)
     centro_bloco = models.CharField(max_length=100)
     referencia_z = models.CharField(max_length=100)
     imagem = models.ImageField(upload_to='media/', blank=True, null=True)
     observacao = models.CharField(max_length=100)
+    setup_inicio = models.DateField(blank=True, null=True)
+    setup_hora_ini = models.DurationField(blank=True, null=True)
+    setup_termino = models.DateField(blank=True, null=True)
+    setup_hora_ter = models.DurationField(blank=True, null=True)
+    usina_inicio = models.DateField(blank=True, null=True)
+    usina_hora_ini = models.DurationField(blank=True, null=True)
+    usina_termino = models.DateField(blank=True, null=True)
+    usina_hora_ter = models.DurationField(blank=True, null=True)
+
+    def esta_concluido(self):
+        """Verifica se todos os processos do projeto estão rubricados."""
+        return not self.processo_set.filter(rubrica=False).exists()
+
+    def marcar_como_concluido(self):
+        """Marca o projeto como concluído se todos os processos estiverem rubricados."""
+        if self.esta_concluido():
+            # Você pode adicionar um campo 'concluido' ou fazer outra ação
+            pass
 
     def __str__(self):
         return f"Programa - {self.id}"
@@ -79,17 +47,10 @@ class Processo(models.Model):
         verbose_name_plural = 'Processos'
      
     projeto = models.ForeignKey(Projeto, on_delete=models.PROTECT)
-    setup_inicio = models.DateField(auto_now=False, auto_now_add=False)
-    setup_hora_ini = models.CharField(max_length=100)
-    setup_termino = models.DateField(auto_now=False, auto_now_add=False)
-    setup_hora_ter = models.CharField(max_length=100)
-    usina_inicio = models.DateField(auto_now=False, auto_now_add=False)
-    usina_hora_ini = models.CharField(max_length=100)
-    usina_termino = models.DateField(auto_now=False, auto_now_add=False)
-    usina_hora_ter = models.CharField(max_length=100)
-    programa = models.AutoField(primary_key=True)
-    tipo_percurso = models.ForeignKey(Tipo_Percurso, on_delete=models.PROTECT)
-    referencia = models.ForeignKey(Referencia, on_delete=models.PROTECT)
+    id = models.AutoField(primary_key=True)
+    programa = models.CharField(max_length=100)
+    tipo_percurso = models.CharField(max_length=100)
+    referencia = models.CharField(max_length=100)
     comentario = models.CharField(max_length=100)
     ferramenta_o = models.FloatField(blank=True, null=True) #ferramenta
     ferramenta_rc = models.FloatField(blank=True, null=True) #ferramenta
@@ -104,14 +65,15 @@ class Processo(models.Model):
     tol = models.FloatField(default=0, blank=True, null=True)
     rot = models.FloatField(default=0, blank=True, null=True)
     av = models.FloatField(default=0, blank=True, null=True)
-    angulo = models.ForeignKey(Angulo, on_delete=models.PROTECT)
-    plano_trab = models.ForeignKey(Plano_Trabalho, on_delete=models.PROTECT)
+    angulo = models.CharField(max_length=100)
+    plano_trab = models.CharField(max_length=100)
     corte = models.CharField(max_length=100) #tempo
     total = models.CharField(max_length=100) #tempo
     fresa = models.CharField(max_length=100)
     sup = models.CharField(max_length=100)
-    medicao = models.CharField(max_length=100)
+    medicao = models.CharField(max_length=100, blank=True, null=True)
     rubrica = models.BooleanField(default=False)
+    rubrica_montador = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.projeto} processo {self.programa}"

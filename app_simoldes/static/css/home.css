@@ -20,5 +20,9 @@
 }
 
 .bg-simoldes-dark {
-    background-color: #265245;
+    background-color: #265245 !important;
+}
+
+.larger-text {
+    font-size: 1.2rem;
 }

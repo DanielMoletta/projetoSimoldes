@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<main class="mt-5 container">
+  <h1 class="mb-4">Todos os Projetos</h1>
+  <div class="row g-4">
+    {% for projeto in projetos %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <a href="{% url 'projeto_detail' projeto.id %}" class="card h-100 text-decoration-none text-body">
+        <img src="{% if projeto.imagem %}{{ projeto.imagem.url }}{% else %}{% static 'imgs/capa.png' %}{% endif %}"
+             class="card-img-top" alt="Capa do projeto">
+        <div class="card-body">
+          <h5 class="card-title">Projeto #{{ projeto.id }}</h5>
+          <p class="card-text">
+            <strong>Máquina:</strong> {{ projeto.maquina }}<br>
+            <strong>Data:</strong> {{ projeto.data }}<br>
+            <strong>Programador:</strong> {{ projeto.programador }}
+          </p>
+        </div>
+      </a>
+    </div>
+    {% empty %}
+      <p>Nenhum projeto cadastrado.</p>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

@@ -9,9 +9,18 @@
 
 .btn-simoldes:hover {
     color: #fff;
-    background-color: #00614D;
+    background-color: #06836a;
 }
 
 .border-simoldes {
     border-color: #00614D;
+}
+
+.logo-sim {
+    filter: grayscale(100) brightness(100);
+}
+
+.rotate {
+  transform: translateX(150px) translateY(62px) rotate(45deg);
+  filter: drop-shadow(0 0 0.75rem #303030);
 }

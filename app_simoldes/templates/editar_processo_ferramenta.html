@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+  <div class="card shadow-sm">
+    <div class="card-header bg-verde-simoldes text-white d-flex justify-content-between align-items-center">
+      <h2 class="mb-0">Editar Ferramentas do Processo {{ processo.programa }} (Projeto {{ projeto_id }})</h2>
+    </div>
+    <div class="card-body">
+      <form method="post" class="row g-3">
+        {% csrf_token %}
+
+        <!-- Rubrica Montador -->
+        <div class="col-12 form-check form-switch mt-3 ms-2">
+          {{ form.rubrica_montador }}
+          <label class="form-check-label ms-2">{{ form.rubrica_montador.label }}</label>
+          {{ form.rubrica_montador.errors }}
+        </div>
+
+        <!-- Matrícula -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">{{ form.matricula.label }}</label>
+          {{ form.matricula }}
+          {{ form.matricula.errors }}
+        </div>
+
+        <!-- Senha -->
+        <div class="col-12">
+          <label class="form-label fw-semibold">{{ form.senha.label }}</label>
+          {{ form.senha }}
+          {{ form.senha.errors }}
+        </div>
+
+        {% if erro_autenticacao %}
+        <div class="alert alert-danger col-12">
+          Matrícula ou senha inválidos para confirmar a rubrica do montador.
+        </div>
+        {% endif %}
+
+        <!-- Botões -->
+        <div class="col-12 d-flex justify-content-end gap-2">
+          <button type="submit" class="btn btn-success">Salvar</button>
+          <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
