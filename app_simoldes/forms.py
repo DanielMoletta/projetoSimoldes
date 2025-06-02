@@ -93,20 +93,17 @@ class ProjetoEditForm(forms.ModelForm):
 
 class ProcessoEditForm(forms.ModelForm):
     matricula = forms.CharField(
-        label='Matrícula',
-        max_length=100,
         required=False,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Digite sua matrícula'
+            'class': 'form-control rounded-3 py-2',
+            'placeholder': 'Matrícula'
         })
     )
     senha = forms.CharField(
-        label='Senha',
         required=False,
         widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Digite sua senha'
+            'class': 'form-control rounded-3 py-2',
+            'placeholder': 'Senha'
         })
     )
 
@@ -115,8 +112,8 @@ class ProcessoEditForm(forms.ModelForm):
         fields = ['medicao', 'rubrica']
         widgets = {
             'medicao': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Digite a medição'
+                'class': 'form-control rounded-3 py-2',
+                'placeholder': 'Medição'
             }),
             'rubrica': forms.CheckboxInput(attrs={
                 'class': 'form-check-input'
@@ -125,42 +122,45 @@ class ProcessoEditForm(forms.ModelForm):
 
     def clean(self):
         cleaned = super().clean()
-        rubrica = cleaned.get('rubrica')
-        matricula = cleaned.get('matricula')
-        senha = cleaned.get('senha')
-
-        # Se for tentar marcar/desmarcar a rubrica, exige credenciais válidas
-        # (comparar com o app 'contas', campo Conta.matricula)
         if 'rubrica' in self.changed_data:
-            # Então o usuário alterou rubrica: exige matrícula e senha
-            if not matricula or not senha:
+            mat = cleaned.get('matricula')
+            pwd = cleaned.get('senha')
+            if not mat or not pwd:
                 raise ValidationError('Para alterar a rubrica, informe matrícula e senha.')
             try:
-                conta = Conta.objects.get(matricula=matricula)
+                conta = Conta.objects.get(matricula=mat)
             except Conta.DoesNotExist:
                 raise ValidationError('Matrícula não encontrada.')
-            user = authenticate(username=conta.user.username, password=senha)
+            user = authenticate(username=conta.user.username, password=pwd)
             if user is None:
-                raise ValidationError('Senha incorreta para a matrícula informada.')
-
+                raise ValidationError('Senha incorreta.')
+            # guardamos o user no form para usar no save()
+            self._rubrica_user = user
         return cleaned
+
+    def save(self, commit=True):
+        inst = super().save(commit=False)
+        # só setamos se validamos a rubrica
+        if hasattr(self, '_rubrica_user'):
+            inst.rubrica_user = self._rubrica_user
+        if commit:
+            inst.save()
+        return inst
+
 
 class ProcessoFerramentaEditForm(forms.ModelForm):
     matricula = forms.CharField(
-        label='Matrícula',
-        max_length=100,
         required=False,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Digite sua matrícula'
+            'class': 'form-control rounded-3 py-2',
+            'placeholder': 'Matrícula'
         })
     )
     senha = forms.CharField(
-        label='Senha',
         required=False,
         widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Digite sua senha'
+            'class': 'form-control rounded-3 py-2',
+            'placeholder': 'Senha'
         })
     )
 
@@ -175,23 +175,25 @@ class ProcessoFerramentaEditForm(forms.ModelForm):
 
     def clean(self):
         cleaned = super().clean()
-        # Se o usuário mudou o valor de rubrica_montador, exige credenciais válidas
         if 'rubrica_montador' in self.changed_data:
-            matricula = cleaned.get('matricula')
-            senha = cleaned.get('senha')
-
-            if not matricula or not senha:
-                raise ValidationError('Para alterar a rubrica do montador, informe matrícula e senha.')
-
-            # busca a Conta pela matrícula
+            mat = cleaned.get('matricula')
+            pwd = cleaned.get('senha')
+            if not mat or not pwd:
+                raise ValidationError('Para alterar a rubrica de montador, informe matrícula e senha.')
             try:
-                conta = Conta.objects.get(matricula=matricula)
+                conta = Conta.objects.get(matricula=mat)
             except Conta.DoesNotExist:
                 raise ValidationError('Matrícula não encontrada.')
-
-            # autentica pelo User associado
-            user = authenticate(username=conta.user.username, password=senha)
+            user = authenticate(username=conta.user.username, password=pwd)
             if user is None:
-                raise ValidationError('Senha incorreta para a matrícula informada.')
-
+                raise ValidationError('Senha incorreta.')
+            self._rm_user = user
         return cleaned
+
+    def save(self, commit=True):
+        inst = super().save(commit=False)
+        if hasattr(self, '_rm_user'):
+            inst.rubrica_montador_user = self._rm_user
+        if commit:
+            inst.save()
+        return inst

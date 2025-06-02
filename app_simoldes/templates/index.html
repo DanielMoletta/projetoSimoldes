@@ -13,7 +13,7 @@
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <title>Folha de Preparacao</title>
+    <title>{% block title %}Simoldes Tools{% endblock %}</title>
 </head>
 
 <body class="bg-body-tertiary">
@@ -35,11 +35,14 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end " id="navbarNav">
                         <ul class="navbar-nav">
+                            {% if request.user.is_staff %}
+                            {% else %}
                             <li class="nav-item me-3">
                                 <a class="nav-link text-white fs-3" href="{% url 'home' %}">Projeto atual <i
                                         class="fa-solid fa-list"></i>
                                 </a>
                             </li>
+                            {% endif %}
                             {% if request.user.is_staff %}
                             <li class="nav-item me-3">
                                 <a class="nav-link text-white fs-3" href="{% url 'admin:index' %}">Admin <i

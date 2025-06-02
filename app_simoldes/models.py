@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Projeto(models.Model):
     class Meta:
@@ -72,8 +75,18 @@ class Processo(models.Model):
     fresa = models.CharField(max_length=100)
     sup = models.CharField(max_length=100)
     medicao = models.CharField(max_length=100, blank=True, null=True)
+    
     rubrica = models.BooleanField(default=False)
+    rubrica_user = models.ForeignKey(
+        User, null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='rubricas_user'
+    )
     rubrica_montador = models.BooleanField(default=False)
-
+    rubrica_montador_user = models.ForeignKey(
+        User, null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='rubricas_montador'
+    )
     def __str__(self):
         return f"{self.projeto} processo {self.programa}"

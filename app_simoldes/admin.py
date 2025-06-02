@@ -1,42 +1,35 @@
 from django.contrib import admin
-from .models import *
-from django.contrib.admin.models import LogEntry, CHANGE
-from django.contrib.contenttypes.models import ContentType
-
 from .models import Processo
+from .models import Projeto
 
-admin.site.register(Projeto)
-admin.site.register(Processo)
+# -------------------------------------------------------------------
+# 1) Formulário padrão para o Admin (sem matrícula/senha)
+# -------------------------------------------------------------------
+from django import forms
 
+class ProcessoAdminForm(forms.ModelForm):
+    class Meta:
+        model = Processo
+        # Aqui você inclui apenas os campos 'oficiais' do modelo.
+        # Como não vamos pedir matrícula/senha no admin, 
+        # omitimos totalmente esses campos.
+        fields = [ f.name for f in Processo._meta.fields if f.name not in ('rubrica', 'rubrica_montador') ] + [
+            # depois você pode querer expor rubrica e rubrica_montador mesmo assim:
+            'rubrica', 'rubrica_montador',
+        ]
+
+# -------------------------------------------------------------------
+# 2) ModelAdmin que usa o form acima
+# -------------------------------------------------------------------
+@admin.register(Processo)
 class ProcessoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'rubrica', 'rubrica_montador', ...)
-    # ... qualquer outra configuração do admin
+    # aqui o Django inclui TODOS os campos de Processo, sem precisar listar
+    list_display = ('projeto', 'programa', 'rubrica', 'rubrica_montador')
+    list_filter  = ('rubrica', 'rubrica_montador')
+    search_fields= ('projeto__id', 'programa')
 
-    def save_model(self, request, obj, form, change):
-        # Se for edição (change=True), verifica mudanças nesses campos
-        if change:
-            # carrega o objeto anterior do banco
-            antigo = Processo.objects.get(pk=obj.pk)
-
-            if antigo.rubrica != obj.rubrica:
-                LogEntry.objects.log_action(
-                    user_id         = request.user.pk,
-                    content_type_id = ContentType.objects.get_for_model(obj).pk,
-                    object_id       = obj.pk,
-                    object_repr     = str(obj),
-                    action_flag     = CHANGE,
-                    change_message  = f"rubrica mudou de {antigo.rubrica} para {obj.rubrica}",
-                )
-
-            if antigo.rubrica_montador != obj.rubrica_montador:
-                LogEntry.objects.log_action(
-                    user_id         = request.user.pk,
-                    content_type_id = ContentType.objects.get_for_model(obj).pk,
-                    object_id       = obj.pk,
-                    object_repr     = str(obj),
-                    action_flag     = CHANGE,
-                    change_message  = f"rubrica_montador mudou de {antigo.rubrica_montador} para {obj.rubrica_montador}",
-                )
-
-        # Comita a mudança normalmente
-        super().save_model(request, obj, form, change)
+# Se quiser também customizar o Projeto:
+@admin.register(Projeto)
+class ProjetoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'maquina', 'data', 'esta_concluido')
+    search_fields= ('maquina',)

@@ -52,7 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'app_simoldes.middleware.CurrentUserMiddleware',
 ]
 
 ROOT_URLCONF = 'projeto_simoldes.urls'

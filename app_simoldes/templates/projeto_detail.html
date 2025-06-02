@@ -1,7 +1,10 @@
 {% extends 'index.html' %}
 {% load static %}
 
+{% block title %}Projeto {{ projeto.id }}{% endblock %}
+
 {% block content %}
+
 <main class="mt-5">
 
     <!-- DADOS GERAIS DO PROJETO -->
@@ -9,7 +12,7 @@
         <div class="row gap-3">
             <div class="col-12 col-lg-6 bg-white border border-1 rounded-4 order-2 order-lg-1">
                 <img src="{% if projeto.imagem %}{{ projeto.imagem.url }}{% else %}{% static 'imgs/capa.png' %}{% endif %}"
-                    class="img-fluid" alt="Capa do projeto">
+                    class="img-fluid d-block mx-auto my-auto" alt="Capa do projeto">
             </div>
             <div class="col order-1 order-lg-2">
                 <div class="row gap-2 mb-2">
@@ -373,7 +376,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h6 class="card-title">Medição</h6>
-                                                <p class="card-text fw-bold">{{ processo.medicao }}</p>
+                                                <p class="card-text fw-bold fs-4">{{ processo.medicao }}</p>
                                                 </form>
                                             </div>
                                         </div>
@@ -384,9 +387,17 @@
                                                 <h6 class="card-title {% if processo.rubrica %}text-white{% endif %}">
                                                     Rúbrica
                                                 </h6>
-                                                <p
-                                                    class="card-text fw-bold {% if processo.rubrica %}text-white{% endif %}">
-                                                    {{ processo.rubrica|yesno:"Rubricado por , Não Rubricado" }}
+                                                {% if processo.rubrica %}
+                                                <p class="text-white fw-bold fs-5">
+                                                    Rubricado por
+                                                    {% if processo.rubrica_user.get_full_name %}
+                                                    {{ processo.rubrica_user.get_full_name }}
+                                                    {% else %}
+                                                    {{ processo.rubrica_user.username }}
+                                                    {% endif %}
+                                                    {% else %}
+                                                    Não confirmada
+                                                    {% endif %}
                                                 </p>
                                             </div>
                                         </div>
@@ -521,12 +532,20 @@
                                         <div class="card-body">
                                             <h6
                                                 class="card-title {% if processo.rubrica_montador %}text-white{% endif %}">
-                                                Rúbrica
-                                            </h6>
-                                            <p
-                                                class="card-text fw-bold {% if processo.rubrica_montador %}text-white{% endif %}">
-                                                {{ processo.rubrica_montador|yesno:"Rubricado por , Não Rubricado" }}
-                                            </p>
+                                                Rúbrica de Montador
+                                                </h6>
+                                                {% if processo.rubrica_montador %}
+                                                <p class="text-white fw-bold fs-5">
+                                                    Rubricado por
+                                                    {% if processo.rubrica_user.get_full_name %}
+                                                    {{ processo.rubrica_montador_user.get_full_name }}
+                                                    {% else %}
+                                                    {{ processo.rubrica_montador_user.username }}
+                                                    {% endif %}
+                                                    {% else %}
+                                                    Não confirmada
+                                                    {% endif %}
+                                                </p>
                                         </div>
                                     </div>
                                 </div>
@@ -534,7 +553,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">
                             Fechar
                         </button>
                     </div>

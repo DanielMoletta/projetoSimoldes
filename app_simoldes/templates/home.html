@@ -2,13 +2,15 @@
 {% extends 'index.html' %}
 {% load static %}
 
+{% block title %}Fila de Processos{% endblock %}
+
 {% block content %}
 {% if projeto %}
-    <div class="container mt-3">
-        <div class="alert alert-primary">
-            <strong>Projeto Atual:</strong> {{ projeto.nome }} (Máquina: {{ projeto.maquina }})
-        </div>
+<div class="container mt-3">
+    <div class="alert alert-primary">
+        <strong>Projeto Atual:</strong> {{ projeto.nome }} (Máquina: {{ projeto.maquina }})
     </div>
+</div>
 {% endif %}
 <main class="mt-5">
 
@@ -385,7 +387,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h6 class="card-title">Medição</h6>
-                                                <p class="card-text fw-bold">{{ processo.medicao }}</p>
+                                                <p class="card-text fw-bold fs-4">{{ processo.medicao }}</p>
                                                 </form>
                                             </div>
                                         </div>
@@ -396,9 +398,17 @@
                                                 <h6 class="card-title {% if processo.rubrica %}text-white{% endif %}">
                                                     Rúbrica
                                                 </h6>
-                                                <p
-                                                    class="card-text fw-bold {% if processo.rubrica %}text-white{% endif %}">
-                                                    {{ processo.rubrica|yesno:"Rubricado por , Não Rubricado" }}
+                                                {% if processo.rubrica %}
+                                                <p class="text-white fw-bold fs-5">
+                                                    Rubricado por
+                                                    {% if processo.rubrica_user.get_full_name %}
+                                                    {{ processo.rubrica_user.get_full_name }}
+                                                    {% else %}
+                                                    {{ processo.rubrica_user.username }}
+                                                    {% endif %}
+                                                    {% else %}
+                                                    Não confirmada
+                                                    {% endif %}
                                                 </p>
                                             </div>
                                         </div>
@@ -408,10 +418,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="{% url 'editar_processo' projeto.id processo.id %}" class="btn btn-success">
-                            Editar Medição & Rúbrica
+                        {% if not processo.rubrica %}
+                        <a href="{% url 'editar_processo' processo.projeto.id processo.id %}"
+                            class="btn btn-success fs-5">
+                            Editar Rúbrica
                         </a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {% endif %}
+
+                        <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">
                             Fechar
                         </button>
                     </div>
@@ -536,12 +550,22 @@
                                         <div class="card-body">
                                             <h6
                                                 class="card-title {% if processo.rubrica_montador %}text-white{% endif %}">
-                                                Rúbrica
+                                                Rúbrica de Montador
                                             </h6>
-                                            <p
-                                                class="card-text fw-bold {% if processo.rubrica_montador %}text-white{% endif %}">
-                                                {{ processo.rubrica_montador|yesno:"Rubricado por , Não Rubricado" }}
+                                            {% if processo.rubrica_montador %}
+                                            <p class="text-white fw-bold fs-5">
+                                                Rubricado por
+
+                                                {% if processo.rubrica_montador_user.get_full_name %}
+                                                {{ processo.rubrica_montador_user.get_full_name }}
+                                                {% else %}
+                                                {{ processo.rubrica_montador_user.username }}
+                                                {% endif %}
+                                                {% else %}
+                                                Não confirmada
+
                                             </p>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -549,10 +573,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="{% url 'editar_processo_ferramenta' projeto.id processo.id %}" class="btn btn-success">
-                            Editar Rúbrica do Montador
+                        {% if not processo.rubrica_montador %}
+                        <a href="{% url 'editar_processo_ferramenta' processo.projeto.id processo.id %}"
+                            class="btn btn-success fs-5">
+                            Editar Rúbrica
                         </a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {% endif %}
+
+                        <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">
                             Fechar
                         </button>
                     </div>

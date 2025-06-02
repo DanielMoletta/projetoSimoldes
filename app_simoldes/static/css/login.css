@@ -21,6 +21,6 @@
 }
 
 .rotate {
-  transform: translateX(150px) translateY(62px) rotate(45deg);
+  transform: translateX(170px) translateY(62px) rotate(45deg);
   filter: drop-shadow(0 0 0.75rem #303030);
 }

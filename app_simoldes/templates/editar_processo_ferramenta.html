@@ -1,6 +1,8 @@
 {% extends 'index.html' %}
 {% load static %}
 
+{% block title %}Editar {{ projeto.id }}{% endblock %}
+
 {% block content %}
 <div class="container mt-5" style="max-width: 600px;">
   <div class="card shadow-sm">
@@ -32,9 +34,11 @@
           {{ form.senha.errors }}
         </div>
 
-        {% if erro_autenticacao %}
+        {% if form.non_field_errors %}
         <div class="alert alert-danger col-12">
-          Matrícula ou senha inválidos para confirmar a rubrica do montador.
+          {% for error in form.non_field_errors %}
+          <div>{{ error }}</div>
+          {% endfor %}
         </div>
         {% endif %}
 

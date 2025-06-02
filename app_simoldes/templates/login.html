@@ -1,5 +1,7 @@
 {% extends 'index2.html' %}
 
+{% block title %}Login{% endblock %}
+
 {% block content %}
 <section class="container min-vh-100 d-flex flex-column justify-content-center align-items-center mt-0 fs-3">
     <div class="d-flex justify-content-center m-0 p-0 b-0">
@@ -8,7 +10,7 @@
     <div
         class="d-flex flex-column align-items-center bg-body-tertiary justify-content-center rounded-4 my-auto mt-0 p-5 gap-2">
         <a class="logo" href="#"><img class="img-fluid" src="../static/imgs/logo_sem_estrela.png" alt="Logo da Simoldes"
-                width="500"></a>
+                width="400"></a>
         <form method="post" class="w-100" style="max-width: 500px;">
             {% csrf_token %}
 
