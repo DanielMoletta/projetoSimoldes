@@ -10,19 +10,19 @@
     <!-- DADOS GERAIS DO PROJETO -->
     <section class="container">
         <div class="row gap-3">
-            <div class="col-12 col-lg-6 bg-white border border-1 rounded-4 order-2 order-lg-1">
+            <div class="col-12 col-lg-6 card order-2 order-lg-1 shadow">
                 <img src="{% if projeto.imagem %}{{ projeto.imagem.url }}{% else %}{% static 'imgs/capa.png' %}{% endif %}"
                     class="img-fluid d-block mx-auto my-auto" alt="Capa do projeto">
             </div>
             <div class="col order-1 order-lg-2">
                 <div class="row gap-2 mb-2">
-                    <div class="card col-6">
+                    <div class="card col-6 shadow">
                         <div class="card-body">
                             <h6 class="card-title">Máquina</h6>
                             <h5 class="card-subtitle text-primary">{{ projeto.maquina }}</h5>
                         </div>
                     </div>
-                    <div class="card col">
+                    <div class="card col shadow">
                         <div class="card-body">
                             <h6 class="card-title">Data</h6>
                             <h5 class="card-subtitle text-primary">{{ projeto.data }}</h5>
@@ -30,13 +30,13 @@
                     </div>
                 </div><!-- row -->
                 <div class="row gap-2 mb-2">
-                    <div class="card col-6">
+                    <div class="card col-6 shadow">
                         <div class="card-body">
                             <h6 class="card-title">Pastas dos programas</h6>
                             <h5 class="card-subtitle text-danger">{{ projeto.pasta_programas }}</h5>
                         </div>
                     </div>
-                    <div class="card col">
+                    <div class="card col shadow">
                         <div class="card-body">
                             <h6 class="card-title">Material</h6>
                             <h5 class="card-subtitle text-danger">{{ projeto.material }}</h5>
@@ -44,13 +44,13 @@
                     </div>
                 </div><!-- row -->
                 <div class="row gap-2 mb-2">
-                    <div class="card col-6">
+                    <div class="card col-6 shadow">
                         <div class="card-body">
                             <h6 class="card-title">Programador</h6>
                             <h5 class="card-subtitle">{{ projeto.programador }}</h5>
                         </div>
                     </div>
-                    <div class="card col">
+                    <div class="card col shadow">
                         <div class="card-body">
                             <h6 class="card-title">Aperto</h6>
                             <h5 class="card-subtitle text-success">{{ projeto.aperto }}</h5>
@@ -58,10 +58,16 @@
                     </div>
                 </div><!-- row -->
                 <div class="row gap-2">
-                    <div class="card col-6">
+                    <div class="card col-6 shadow">
                         <div class="card-body">
                             <h6 class="card-title">Tempo do projeto</h6>
                             <h5 class="card-subtitle text-danger">{{ projeto.tempo_projeto }}</h5>
+                        </div>
+                    </div>
+                    <div class="card col shadow">
+                        <div class="card-body">
+                            <h6 class="card-title">Operador(es)</h6>
+                            <h5 class="card-subtitle">Daniel Aires</h5>
                         </div>
                     </div>
                 </div><!-- row -->
@@ -71,13 +77,12 @@
 
     <!-- TABELA DE SETUP / USINAGEM -->
     <section class="container mt-5 p-0 larger-text">
-        <div class="table-responsive rounded">
+        <div class="table-responsive rounded shadow mb-2">
             <table class="table table-hover text-center">
                 <thead class="table-light">
                     <tr>
                         <th>Setup</th>
                         <th>Usinagem</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +101,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="table-responsive rounded-3">
+        <div class="table-responsive rounded-3 shadow">
             <table class="table table-hover text-center h-100 mb-0">
                 <thead class="table-light">
                     <tr>
@@ -128,7 +133,7 @@
     <section class="container mt-5 p-0 larger-text">
         <h2 class="mb-4">Linha de Processos</h2>
         <div class="table-responsive">
-            <table class="table table-hover text-center rounded-3">
+            <table class="table table-hover text-center rounded-3 shadow">
                 <thead class="table-light">
                     <tr>
                         <th>Programa</th>
@@ -385,7 +390,7 @@
                                         <div class="card {% if processo.rubrica %}bg-success{% endif %}">
                                             <div class="card-body">
                                                 <h6 class="card-title {% if processo.rubrica %}text-white{% endif %}">
-                                                    Rúbrica
+                                                    Rubrica
                                                 </h6>
                                                 {% if processo.rubrica %}
                                                 <p class="text-white fw-bold fs-5">
@@ -523,16 +528,16 @@
                                     </div>
                                 </div>
 
-                                <!-- Rúbrica Montador -->
+                                <!-- Rubrica Montador -->
                                 <div class="col-12 mt-3">
-                                    <h5 class="fw-bold">Rúbrica Montador</h5>
+                                    <h5 class="fw-bold">Rubrica Montador</h5>
                                 </div>
                                 <div class="col-md-12 text-center">
                                     <div class="card {% if processo.rubrica_montador %}bg-success{% endif %}">
                                         <div class="card-body">
                                             <h6
                                                 class="card-title {% if processo.rubrica_montador %}text-white{% endif %}">
-                                                Rúbrica de Montador
+                                                Rubrica de Montador
                                                 </h6>
                                                 {% if processo.rubrica_montador %}
                                                 <p class="text-white fw-bold fs-5">

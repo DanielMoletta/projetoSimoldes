@@ -6,64 +6,63 @@
 {% block content %}
 <main class="mt-5 container">
   <h1>Gráficos</h1>
-  <section class="container mt-1 mb-0 p-0 larger-text">
-    <div class="table-responsive rounded">
-      <table class="table table-hover text-center">
-        <thead class="table-light">
-          <tr>
-            <th><a class="btn btn-outline-success border-0 text-decoration-none text-white fs-4" data-bs-toggle="collapse" href="#graficos" role="button"
-                aria-expanded="false" aria-controls="collapseExample">
-                Rúbricas
-              </a></th>
-            <th><a class="btn btn-outline-success border-0 text-decoration-none text-white fs-4" data-bs-toggle="collapse" href="#funcionarios" role="button"
-                aria-expanded="false" aria-controls="collapseExample">
-                Funcionários
-              </a></th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  </section>
-
-  <div class="collapse mt-0 mb-3" id="graficos">
-    <div class="card card-body">
-      <div class="row mb-5">
-        <div class="col-md-4 text-center">
-          <h5>Rúbrica</h5>
-          <img src="{% static chart_rubrica_url %}" class="img-fluid d-block mx-auto" alt="Gráfico Rúbrica">
-        </div>
-        <div class="col-md-4 text-center">
-          <h5>Rúbrica Montador</h5>
-          <img src="{% static chart_rubrica_montador_url %}" class="img-fluid d-block mx-auto"
-            alt="Gráfico Rúbrica Montador">
-        </div>
-        <div class="col-md-3 text-center">
-          <h5>Projetos Status</h5>
-          <img src="{% static chart_project_status_url %}" class="img-fluid d-block mx-auto" alt="Gráfico Projetos">
-        </div>
-        <div class="d-flex justify-content-end mb-3">
-          <a href="{% url 'exportar_rubricas' %}" class="btn btn-success fs-4">
-            Baixar Logs
-          </a>
+  <div class="accordion" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          Rubricas
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+        <div class="card card-body">
+          <div class="row">
+            <div class="col-md-4 text-center">
+              <h5>Rubrica</h5>
+              <img src="{% static chart_rubrica_url %}" class="img-fluid d-block mx-auto" alt="Gráfico Rubrica">
+            </div>
+            <div class="col-md-4 text-center">
+              <h5>Rubrica Montador</h5>
+              <img src="{% static chart_rubrica_montador_url %}" class="img-fluid d-block mx-auto"
+                alt="Gráfico Rubrica Montador">
+            </div>
+            <div class="col-md-3 text-center">
+              <h5>Projetos Status</h5>
+              <img src="{% static chart_project_status_url %}" class="img-fluid d-block mx-auto" alt="Gráfico Projetos">
+            </div>
+            <div class="d-flex justify-content-end">
+              <a href="{% url 'exportar_rubricas' %}" class="btn btn-success fs-4">
+                Baixar Logs
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="collapse mb-3" id="funcionarios">
-    <div class="card card-body">
-      <div class="row mb-5">
-        <div class="col-md-3 text-center">
-          <h5>Projetos Status</h5>
-          <img src="{% static chart_project_status_url %}" class="img-fluid d-block mx-auto" alt="Gráfico Projetos">
-        </div>
-        <div class="col-md-4 text-center">
-          <h5>Funcionários</h5>
-          <img src="{% static chart_rubrica_url %}" class="img-fluid d-block mx-auto" alt="Gráfico Rúbrica">
-        </div>
-        <div class="d-flex justify-content-end mb-3">
-          <a href="{% url 'exportar_rubricas' %}" class="btn btn-success fs-4">
-            Baixar Logs
-          </a>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+          Funcionários
+        </button>
+      </h2>
+      <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+        <div class="card card-body">
+          <div class="row">
+            <div class="col-md-3 text-center">
+              <h5>Projetos Status</h5>
+              <img src="{% static chart_project_status_url %}" class="img-fluid d-block mx-auto" alt="Gráfico Projetos">
+            </div>
+            <div class="col-md-4 text-center">
+              <h5>Funcionários</h5>
+              <img src="{% static chart_rubrica_url %}" class="img-fluid d-block mx-auto" alt="Gráfico Rubrica">
+            </div>
+            <div class="d-flex justify-content-end">
+              <a href="{% url 'exportar_rubricas' %}" class="btn btn-success fs-4">
+                Baixar Logs
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
