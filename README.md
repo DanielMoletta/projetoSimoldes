@@ -42,7 +42,7 @@ git clone [https://github.com/DanielMoletta/projetoSimoldes.git](https://github.
 cd projetoSimoldes
 
 2. (Recomendado) Criar um Ambiente Virtual É uma boa prática criar um ambiente virtual para isolar as dependências do projeto.
-
+```bash
 # Windows
 python -m venv venv
 .\venv\Scripts\activate
@@ -50,18 +50,21 @@ python -m venv venv
 # macOS / Linux
 python3 -m venv venv
 source venv/bin/activate
-3. Instalar as Dependências Este comando irá ler o arquivo requirements.txt e instalar automaticamente todas as bibliotecas necessárias (Django, matplotlib, etc.).
-
-pip install -r requirements.txt
-4. Aplicar as Migrações do Banco Este comando irá criar o arquivo de banco de dados db.sqlite3 e as tabelas necessárias.
-
-python manage.py migrate
-5. Iniciar o Servidor
-
-python manage.py runserver
-
-6. Acessar a Aplicação Abra seu navegador e acesse: http://127.0.0.1:8000/
 ```
+3. Instalar as Dependências Este comando irá ler o arquivo requirements.txt e instalar automaticamente todas as bibliotecas necessárias (Django, matplotlib, etc.).
+```bash
+pip install -r requirements.txt
+```
+4. Aplicar as Migrações do Banco Este comando irá criar o arquivo de banco de dados db.sqlite3 e as tabelas necessárias.
+```bash
+python manage.py migrate
+```
+5. Iniciar o Servidor
+```bash
+python manage.py runserver
+```
+6. Acessar a Aplicação Abra seu navegador e acesse: http://127.0.0.1:8000/
+
 
 ⚠️ Observação Importante
 Conforme descrito na documentação, a aplicação atualmente só exibe informações se o banco de dados (SQLite) já contiver dados. Se o banco de dados estiver vazio, a interface não mostrará resultados, pois ela é projetada para ler e processar os dados existentes.
