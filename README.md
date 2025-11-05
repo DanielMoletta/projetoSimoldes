@@ -40,7 +40,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
 ```bash
 git clone [https://github.com/DanielMoletta/projetoSimoldes.git](https://github.com/DanielMoletta/projetoSimoldes.git)
 cd projetoSimoldes
-
+```
 2. (Recomendado) Criar um Ambiente Virtual É uma boa prática criar um ambiente virtual para isolar as dependências do projeto.
 ```bash
 # Windows
